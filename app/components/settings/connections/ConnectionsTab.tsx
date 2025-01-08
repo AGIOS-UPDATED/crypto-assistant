@@ -91,6 +91,8 @@ export default function ConnectionsTab() {
   };
 
   return (
+    <>
+    
     <div className="p-4 mb-4 border border-bolt-elements-borderColor rounded-lg bg-bolt-elements-background-depth-3">
       <h3 className="text-lg font-medium text-bolt-elements-textPrimary mb-4">GitHub Connection</h3>
       <div className="flex mb-4">
@@ -147,5 +149,63 @@ export default function ConnectionsTab() {
         )}
       </div>
     </div>
+    
+    <div className="p-4 mb-4 border border-bolt-elements-borderColor rounded-lg bg-bolt-elements-background-depth-3">
+      <h3 className="text-lg font-medium text-bolt-elements-textPrimary mb-4">Binance Connection</h3>
+      <div className="flex mb-4">
+        <div className="flex-1 mr-2">
+          <label className="block text-sm text-bolt-elements-textSecondary mb-1">Binance Username:</label>
+          <input
+            type="text"
+            value={githubUsername}
+            onChange={(e) => setGithubUsername(e.target.value)}
+            disabled={isVerifying}
+            className="w-full bg-white dark:bg-bolt-elements-background-depth-4 relative px-2 py-1.5 rounded-md focus:outline-none placeholder-bolt-elements-textTertiary text-bolt-elements-textPrimary dark:text-bolt-elements-textPrimary border border-bolt-elements-borderColor disabled:opacity-50"
+          />
+        </div>
+        <div className="flex-1">
+          <label className="block text-sm text-bolt-elements-textSecondary mb-1">Personal Access Token:</label>
+          <input
+            type="password"
+            value={githubToken}
+            onChange={(e) => setGithubToken(e.target.value)}
+            disabled={isVerifying}
+            className="w-full bg-white dark:bg-bolt-elements-background-depth-4 relative px-2 py-1.5 rounded-md focus:outline-none placeholder-bolt-elements-textTertiary text-bolt-elements-textPrimary dark:text-bolt-elements-textPrimary border border-bolt-elements-borderColor disabled:opacity-50"
+          />
+        </div>
+      </div>
+      <div className="flex mb-4 items-center">
+        {!isConnected ? (
+          <button
+            onClick={handleSaveConnection}
+            disabled={isVerifying || !githubUsername || !githubToken}
+            className="bg-bolt-elements-button-primary-background rounded-lg px-4 py-2 mr-2 transition-colors duration-200 hover:bg-bolt-elements-button-primary-backgroundHover text-bolt-elements-button-primary-text disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+          >
+            {isVerifying ? (
+              <>
+                <div className="i-ph:spinner animate-spin mr-2" />
+                Verifying...
+              </>
+            ) : (
+              'Connect'
+            )}
+          </button>
+        ) : (
+          <button
+            onClick={handleDisconnect}
+            className="bg-bolt-elements-button-danger-background rounded-lg px-4 py-2 mr-2 transition-colors duration-200 hover:bg-bolt-elements-button-danger-backgroundHover text-bolt-elements-button-danger-text"
+          >
+            Disconnect
+          </button>
+        )}
+        {isConnected && (
+          <span className="text-sm text-green-600 flex items-center">
+            <div className="i-ph:check-circle mr-1" />
+            Connected to GitHub
+          </span>
+        )}
+      </div>
+    </div>
+    </>
   );
 }
