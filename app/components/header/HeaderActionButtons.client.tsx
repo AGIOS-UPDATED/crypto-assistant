@@ -8,6 +8,7 @@ interface HeaderActionButtonsProps {}
 
 export function HeaderActionButtons({}: HeaderActionButtonsProps) {
   const showWorkbench = useStore(workbenchStore.showWorkbench);
+  const showGraphbench = useStore(workbenchStore.showWorkbench);
   const { showChat } = useStore(chatStore);
 
   const isSmallViewport = useViewport(1024);
@@ -40,6 +41,19 @@ export function HeaderActionButtons({}: HeaderActionButtonsProps) {
           }}
         >
           <div className="i-ph:code-bold" />
+        </Button>
+        <div className="w-[1px] bg-bolt-elements-borderColor" />
+        <Button
+          active={showWorkbench}
+          onClick={() => {
+            if (showWorkbench && !showChat) {
+              chatStore.setKey('showChat', true);
+            }
+
+            workbenchStore.showWorkbench.set(!showGraphbench);
+          }}
+        >
+          <div className="i-ph:align-bottom-duotone" />
         </Button>
       </div>
     </div>
