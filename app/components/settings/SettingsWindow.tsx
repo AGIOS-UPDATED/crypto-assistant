@@ -102,6 +102,16 @@ export const SettingsWindow = ({ open, onClose }: SettingsProps) => {
                     GitHub
                   </a>
                   <a
+                    href="https://github.com/stackblitz-labs/bolt.diy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={classNames(styles['settings-button'], 'flex items-center gap-2')}
+                  >
+                    <div className="i-ph:wallet-fill" />
+                    Repo
+                  </a>
+                
+                  <a
                     href="https://stackblitz-labs.github.io/bolt.diy/"
                     target="_blank"
                     rel="noopener noreferrer"
