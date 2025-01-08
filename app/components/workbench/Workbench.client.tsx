@@ -3,6 +3,8 @@ import { motion, type HTMLMotionProps, type Variants } from 'framer-motion';
 import { computed } from 'nanostores';
 import { memo, useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { AgCharts } from 'ag-charts-react';
+import { getData } from './data';
 import {
   type OnChangeCallback as OnEditorChange,
   type OnScrollCallback as OnEditorScroll,
@@ -58,6 +60,34 @@ export const Workbench = memo(({ chatStarted, isStreaming }: WorkspaceProps) => 
   renderLogger.trace('Workbench');
 
   const [isSyncing, setIsSyncing] = useState(false);
+
+
+  const [options, setOptions] = useState({
+    data: getData(),
+    title: {
+      text: "S&P 500 Index",
+    },
+    subtitle: {
+      text: "Daily High and Low Prices",
+    },
+    footnote: {
+      text: "1 Aug 2023 - 1 Nov 2023",
+    },
+    series: [
+      {
+        type: "candlestick",
+        xKey: "date",
+        xName: "Date",
+        lowKey: "low",
+        highKey: "high",
+        openKey: "open",
+        closeKey: "close",
+      },
+    ],
+    background: {
+      fill: 'transparent', // Set the background to transparent
+    },
+  });
 
   const hasPreview = useStore(computed(workbenchStore.previews, (previews) => previews.length > 0));
   const showWorkbench = useStore(workbenchStore.showWorkbench);
@@ -139,7 +169,7 @@ export const Workbench = memo(({ chatStarted, isStreaming }: WorkspaceProps) => 
             },
           )}
         >
-          <div className="absolute inset-0 px-2 lg:px-6">
+          {/* <div className="absolute inset-0 px-2 lg:px-6">
             <div className="h-full flex flex-col bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor shadow-sm rounded-lg overflow-hidden">
               <div className="flex items-center px-3 py-2 border-b border-bolt-elements-borderColor">
                 <Slider selected={selectedView} options={sliderOptions} setSelected={setSelectedView} />
@@ -239,7 +269,17 @@ export const Workbench = memo(({ chatStarted, isStreaming }: WorkspaceProps) => 
                 </View>
               </div>
             </div>
-          </div>
+          </div> */}
+
+<div className="absolute inset-0 px-2 lg:px-6">
+
+            <div className='h-full    w-full justify-center items-center '>
+            <AgCharts options={options} />
+            </div>
+            </div>
+
+
+
         </div>
       </motion.div>
     )
