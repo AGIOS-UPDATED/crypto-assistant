@@ -2,13 +2,14 @@ import { useStore } from '@nanostores/react';
 import useViewport from '~/lib/hooks';
 import { chatStore } from '~/lib/stores/chat';
 import { workbenchStore } from '~/lib/stores/workbench';
+import { graphStore } from '~/lib/stores/graph';
 import { classNames } from '~/utils/classNames';
 
 interface HeaderActionButtonsProps {}
 
 export function HeaderActionButtons({}: HeaderActionButtonsProps) {
   const showWorkbench = useStore(workbenchStore.showWorkbench);
-  const showGraphbench = useStore(workbenchStore.showWorkbench);
+  const showGraphbench = useStore(graphStore.showWorkbench);
   const { showChat } = useStore(chatStore);
 
   const isSmallViewport = useViewport(1024);
@@ -44,9 +45,9 @@ export function HeaderActionButtons({}: HeaderActionButtonsProps) {
         </Button>
         <div className="w-[1px] bg-bolt-elements-borderColor" />
         <Button
-          active={showWorkbench}
+          active={showGraphbench}
           onClick={() => {
-            if (showWorkbench && !showChat) {
+            if (showGraphbench && !showChat) {
               chatStore.setKey('showChat', true);
             }
 
